@@ -19,8 +19,11 @@ function App() {
         background: "black"
       }}
         onClick={() => {
-          const modifiedTestEngine = TestEngine.engine.incrementAge().incrementAge().back();
-          TestEngine.engine.setAge(modifiedTestEngine.state.age).incrementAge().back().set();
+          TestEngine.engine.mixer().back().set()
+
+          // Demonstrates the usage of the back method to allow for transfer of state
+          // const modifiedTestEngine = TestEngine.engine.incrementAge().incrementAge().back();
+          // TestEngine.engine.setAge(modifiedTestEngine.state.age).incrementAge().back().set();
         }}
       />
     </div>

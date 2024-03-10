@@ -16,7 +16,7 @@ export type StateEngineEngine<E extends StateEngineEngineProps<S> = {}, S extend
     back: () => StateEngine<E, S>;
 }
 
-export type StateEngineEnginePropsGenerator<E extends StateEngineEngineProps<S> = {}, S extends StateEngineState = {}> = (state: S) => E;
+export type StateEngineEnginePropsGenerator<E extends StateEngineEngineProps<S> = {}, S extends StateEngineState = {}> = (state: S, stateEngineEngineGetter: () => StateEngineEngine<E, S>) => E;
 
 export type StateEngineStateSetter<S extends StateEngineState = {}> = Dispatch<SetStateAction<S>>;
 
@@ -35,9 +35,12 @@ export function createStateEngineGenerator<E extends StateEngineEngineProps<S> =
         const action: SetStateAction<S> = {
             ...state
         }
+
+        const finalEngine: StateEngineEngine<E, S> = Object.fromEntries([...Object.entries(engineGenerator(state, () => finalEngine)).map(([key, callback]) => [key, (...args: Parameters<typeof callback>) => stateEngineGenerator(callback(...args), setter).engine]), ["back", () => finalStateEngine]]) as StateEngineEngine<E, S>;
+
         const finalStateEngine: StateEngine<E, S> = {
             state,
-            engine: Object.fromEntries([...Object.entries(engineGenerator(state)).map(([key, callback]) => [key, (...args: Parameters<typeof callback>) => stateEngineGenerator(callback(...args), setter).engine]), ["back", () => finalStateEngine]]) as StateEngineEngine<E, S>,
+            engine: finalEngine,
             set: () => setter(action)
         }
 
