@@ -1,13 +1,27 @@
 # State Engine
 
-The State Engine is an Object with a state, set and get methods, and a render method that triggers a react state update.
+The State Engine is a class with a state, set and get methods, as well as a store method that triggers a React State update.
+
+Please refer to [the Demo State Engine](src/state-engines/demo-state-engine/) for an example of usage.
 
 ## Helper Methods
 
-### createStateEngineGenerator(state, setters, getters)
+### createStateEngine
 
-This method is responsible for setting up the generator that is used by the useStateEngine method. Please refer to [the Demo State Engine](src/state-engines/demo-state-engine.tsx) for an example of usage.
+This method is responsible for setting up the generator that is used by the useStateEngine method.
 
-### useStateEngineGenerator(props: {stateEngineGenerator, defaultState})
+### useStateEngine
 
-This method is responsible for setting up the React Hooks necessary to hold a state and create a State Engine from that state, setState callback, and the State Engine Generator.
+This method is responsible for setting up the React Hooks for state and a State Engine from that state.
+
+### bundleMutators
+
+This method is responsible for prepending a parent key to the Mutators provided.
+
+### bundleGetters
+
+This method is responsible for prepending a parent key to the Getters provided.
+
+## StateEngineProvider
+
+The State Engine Provider is responsible for taking a State Engine Creator and providing an instance of that State Engine to any child components.
