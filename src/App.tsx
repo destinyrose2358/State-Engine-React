@@ -1,29 +1,20 @@
 import './App.css';
-import { DemoStateEngine } from './state-engines/demo-state-engine';
-import { useStateEngine } from './state-engine/state-engine';
+import { DemoStateEngine } from './state-engines/demo-state-engine/demo-state-engine';
+import { useStateEngine } from './state-engine/use-state-engine';
+import { StateEngineProvider } from './state-engine/state-engine-provider';
+import { Container } from './components/container';
+import { DemoStateDisplay } from './components/demo-state-display';
+import { RandomizerButton } from './components/randomizer-button';
 
 function App() {
-  const TestEngine = useStateEngine(DemoStateEngine);
 
   return (
-    <div className="App">
-      <p>{TestEngine.get("personalInfo", "getFullName")}</p>
-      <p>{TestEngine.state.personalInfo.age}</p>
-      <p>{TestEngine.state.ids.id}</p>
-      <div
-      style={{
-        width: "20px",
-        height: "20px",
-        background: "black"
-      }}
-        onClick={() => {
-          TestEngine
-            .set("ids", "incrementId", 1)
-            .set("personalInfo", "mixer")
-            .render();
-        }}
-      />
-    </div>
+    <StateEngineProvider stateEngineCreator={DemoStateEngine}>
+      <Container>
+        <DemoStateDisplay />
+        <RandomizerButton />
+      </Container>
+    </StateEngineProvider>
   );
 }
 
