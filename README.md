@@ -2,7 +2,7 @@
 
 The State Engine is a class with a state, set and get methods, as well as a store method that triggers a React State update.
 
-Please refer to [the Demo State Engine](src/state-engines/demo-state-engine/demo-state-engine.ts) for an example of usage.
+Please refer to [the Demo State Engine](src/state-engines/demo-state-engine/) for an example of usage.
 
 ## Helper Methods
 
